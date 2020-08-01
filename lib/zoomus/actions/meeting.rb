@@ -2,47 +2,46 @@ module Zoomus
   module Actions
     module Meeting
 
-      def meeting_list(*args)
+      def meetings(*args)
         options = Utils.extract_options!(args)
         Utils.require_params(:host_id, options)
         Utils.process_datetime_params!(:start_time, options)
-        Utils.parse_response self.class.post("/meeting/list", :query => options)
+        Utils.parse_response self.class.get("/users/#{id}/meetings", :query => options)
       end
 
-      def meeting_create(*args)
+      def create_meeting(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:host_id, :topic, :type], options)
         Utils.process_datetime_params!(:start_time, options)
-        Utils.parse_response self.class.post("/meeting/create", :query => options)
+        Utils.parse_response self.class.post("/users/#{id}/meetings", :query => options)
       end
 
-      def meeting_update(*args)
+      def get_meeting(*args)
+        options = Utils.extract_options!(args)
+        Utils.require_params([:id, :host_id], options)
+        Utils.parse_response self.class.get("/meetings/#{id}", :query => options)
+      end
+
+      def update_meeting(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:id, :host_id], options)
         Utils.process_datetime_params!(:start_time, options)
-        Utils.parse_response self.class.post("/meeting/update", :query => options)
+        Utils.parse_response self.class.patch("/meetings/#{id}", :query => options)
       end
 
-      def meeting_delete(*args)
+      def delete_meeting(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:id, :host_id], options)
-        Utils.parse_response self.class.post("/meeting/delete", :query => options)
+        Utils.parse_response self.class.delete("/meetings/#{id}", :query => options)
       end
 
-      def meeting_end(*args)
+      def end_meeting(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:id, :host_id], options)
-        Utils.parse_response self.class.post("/meeting/end", :query => options)
-      end
-
-      def meeting_get(*args)
-        options = Utils.extract_options!(args)
-        Utils.require_params([:id, :host_id], options)
-        Utils.parse_response self.class.post("/meeting/get", :query => options)
+        Utils.parse_response self.class.put("/meetings/#{id}/status", :query => options)
       end
 
       Utils.define_bang_methods(self)
-
     end
   end
 end

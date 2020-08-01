@@ -2,74 +2,36 @@ module Zoomus
   module Actions
     module User
 
-      def user_list(*args)
+      def all_users(*args)
         options = Utils.extract_options!(args)
-        Utils.parse_response self.class.post('/user/list', :query => options)
+        Utils.parse_response self.class.get('/users', :query => options)
       end
 
-      def user_pending(*args)
-        options = Utils.extract_options!(args)
-        Utils.parse_response self.class.post('/user/pending', :query => options)
-      end
-
-      def user_create(*args)
+      def create_user(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:type, :email], options)
-        Utils.parse_response self.class.post('/user/create', :query => options)
+        Utils.parse_response self.class.post('/users', :query => options)
       end
 
-      def user_delete(*args)
+      def delete_user(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:id], options)
-        Utils.parse_response self.class.post('/user/delete', :query => options)
-      end
+        Utils.parse_response self.class.post('/users', :query => options)
+      end 
 
-      def user_permanent_delete(*args)
+      def update_user(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:id], options)
-        Utils.parse_response self.class.post('/user/permanentdelete', :query => options)
+        Utils.parse_response self.class.patch("/users/#{id}", :query => options)
       end
 
-      def user_custcreate(*args)
-        options = Utils.extract_options!(args)
-        Utils.require_params([:type, :email], options)
-        Utils.parse_response self.class.post('/user/custcreate', :query => options)
-      end
-
-      def user_update(*args)
+      def get_user(*args)
         options = Utils.extract_options!(args)
         Utils.require_params([:id], options)
-        Utils.parse_response self.class.post('/user/update', :query => options)
-      end
-
-      def user_get(*args)
-        options = Utils.extract_options!(args)
-        Utils.require_params([:id], options)
-        Utils.parse_response self.class.post('/user/get', :query => options)
-      end
-
-      def user_getbyemail(*args)
-        options = Utils.extract_options!(args)
-        Utils.require_params([:email], options)
-        Utils.parse_response self.class.post('/user/getbyemail', :query => options)
-      end
-
-      def user_autocreate(*args)
-        options = Utils.extract_options!(args)
-        Utils.require_params([:type, :email, :password], options)
-        Utils.parse_response self.class.post('/user/autocreate', :query => options)
-      end
-
-      # Need to contact zoom support to enable autocreate2 on your account
-      # Behaves like autocreate, but users email address does not have to match managed domain
-      def user_autocreate2(*args)
-        options = Utils.extract_options!(args)
-        Utils.require_params([:type, :email, :password], options)
-        Utils.parse_response self.class.post('/user/autocreate2', :query => options)
+        Utils.parse_response self.class.get("/users/#{id}", :query => options)
       end
 
       Utils.define_bang_methods(self)
-
     end
   end
 end

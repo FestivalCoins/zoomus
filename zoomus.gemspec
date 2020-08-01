@@ -4,6 +4,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'httparty', '~> 0.13'
   gem.add_dependency 'json', '>= 1.8'
+  gem.add_dependency 'jwt'
 
   gem.add_development_dependency 'byebug'
   gem.add_development_dependency 'rspec'
@@ -21,5 +22,5 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.name          = 'zoomus'
   gem.require_paths = ['lib']
-  gem.version       = '0.6.0'
+  gem.version       = '0.7.0'
 end
