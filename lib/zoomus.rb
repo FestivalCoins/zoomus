@@ -34,7 +34,7 @@ module Zoomus
 
     def initialize
       @api_key = @api_secret = 'xxx'
-      @timeout = 15
+      @timeout = 1500
     end
   end
 end

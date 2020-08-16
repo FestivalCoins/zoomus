@@ -22,7 +22,7 @@ module Zoomus
         :api_key    => options[:api_key],
         :api_secret => options[:api_secret]
       )
-      self.class.default_timeout(options[:timeout])
+      self.class.default_timeout(1200)
     end
 
     def self.token
